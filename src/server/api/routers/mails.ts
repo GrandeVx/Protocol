@@ -24,8 +24,6 @@ export const mailsRouter = createTRPCRouter({
         },
       });
 
-      console.log("sono stato chiamato :", mails);
-
       if (!mails) {
         throw new TRPCError({
           code: "NOT_FOUND",
