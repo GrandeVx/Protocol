@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { TRPCReactProvider } from "@/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,20 +26,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <ClerkProvider>
-          <body className={`font-sans ${inter.variable}`}>
+      <body className={`font-sans ${inter.variable}`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ClerkProvider>
             <TRPCReactProvider cookies={cookies().toString()}>
-              {children}
+              <ChakraProvider>
+                <main className="h-screen w-screen">{children}</main>
+              </ChakraProvider>
             </TRPCReactProvider>
-          </body>
-        </ClerkProvider>
-      </ThemeProvider>
+          </ClerkProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

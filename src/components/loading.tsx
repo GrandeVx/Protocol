@@ -1,13 +1,10 @@
-export default function Loading() {
+export default function LoadingComponent() {
   return (
-    <div className="grid h-full animate-pulse place-items-center pt-4 text-zinc-300">
-      <div
-        role="status"
-        className="flex flex-col items-center justify-center gap-3"
-      >
+    <div className="grid animate-pulse place-items-center pt-4 text-zinc-300">
+      <div role="status">
         <svg
           aria-hidden="true"
-          className="mr-2 h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
+          className="mr-2 h-8 w-8 animate-spin fill-zinc-600 text-gray-200 dark:text-gray-600"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -21,9 +18,7 @@ export default function Loading() {
             fill="currentFill"
           />
         </svg>
-        <span className="text-sl font-bold dark:text-slate-800">
-          Protocol is Loading...
-        </span>
+        <span className="sr-only">Loading General...</span>
       </div>
     </div>
   );

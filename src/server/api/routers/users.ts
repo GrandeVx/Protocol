@@ -1,8 +1,12 @@
-import { protectedProcedure, publicProcedure, router } from "@/lib/server/trpc";
+import {
+  createTRPCRouter,
+  publicProcedure,
+  protectedProcedure,
+} from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-export const usersRouter = router({
+export const usersRouter = createTRPCRouter({
   CreateUser: protectedProcedure
     .input(
       z.object({
@@ -65,7 +69,6 @@ export const usersRouter = router({
             },
           ],
         },
-
       });
 
       if (!users) {
@@ -81,6 +84,4 @@ export const usersRouter = router({
         label: user.email,
       }));
     }),
-
-
 });

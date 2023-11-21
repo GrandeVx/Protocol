@@ -1,6 +1,6 @@
 "use client";
-import { Button } from "../ui/button";
-import { trpc } from "@/lib/trpc/client";
+import { Button } from "@/components/ui/button";
+import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
 import useNavigationStore from "@/lib/zutstand";
@@ -12,10 +12,10 @@ export default function MailOptionNav({ index }: { index: string }) {
 
   if (!userId) return;
 
-  const utility = trpc.useUtils();
+  const utility = api.useUtils();
   const router = useRouter();
 
-  const RemoveMessage = trpc.mails.deleteMail.useMutation({
+  const RemoveMessage = api.mails.deleteMail.useMutation({
     onSuccess: () => {
       if (selected == "inbound") {
         utility.mails.getInboundMails.invalidate({
@@ -30,7 +30,7 @@ export default function MailOptionNav({ index }: { index: string }) {
     },
   });
 
-  const UncheckMessage = trpc.mails.unmarkMail.useMutation({
+  const UncheckMessage = api.mails.unmarkMail.useMutation({
     onSuccess: () => {
       if (selected == "inbound") {
         utility.mails.getInboundMails.invalidate({
@@ -46,10 +46,7 @@ export default function MailOptionNav({ index }: { index: string }) {
 
   return (
     <div className="sticky top-0 flex items-center space-x-0 border-b border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900 sm:justify-center md:justify-start">
-      <Button
-        variant="ghost"
-        onClick={() => UncheckMessage.mutate({ mail_id: index })}
-      >
+      <Button onClick={() => UncheckMessage.mutate({ mail_id: index })}>
         <svg
           className=" h-5 w-5"
           fill="none"
@@ -66,10 +63,7 @@ export default function MailOptionNav({ index }: { index: string }) {
           <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
         </svg>
       </Button>
-      <Button
-        variant="ghost"
-        onClick={() => RemoveMessage.mutate({ mail_id: index })}
-      >
+      <Button onClick={() => RemoveMessage.mutate({ mail_id: index })}>
         <svg
           className=" h-5 w-5"
           fill="none"
@@ -87,7 +81,7 @@ export default function MailOptionNav({ index }: { index: string }) {
           <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
         </svg>
       </Button>
-      <Button variant="ghost" onClick={() => router.push(`/s/${index}`)}>
+      <Button onClick={() => router.push(`/s/${index}`)}>
         <svg
           className=" h-5 w-5"
           fill="none"
@@ -104,7 +98,7 @@ export default function MailOptionNav({ index }: { index: string }) {
           <path d="M20 18v-2a4 4 0 0 0-4-4H4" />
         </svg>
       </Button>
-      <Button variant="ghost">
+      <Button>
         <svg
           className=" h-5 w-5"
           fill="none"
@@ -122,7 +116,7 @@ export default function MailOptionNav({ index }: { index: string }) {
         </svg>
       </Button>
       <div className="ml-auto">
-        <Button variant="ghost">
+        <Button>
           <svg
             className=" h-5 w-5"
             fill="none"

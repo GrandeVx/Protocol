@@ -31,7 +31,6 @@ export default function Poplol({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
           role="combobox"
           aria-expanded={open}
           className="w-[300px] justify-between"
@@ -51,7 +50,7 @@ export default function Poplol({
         <Command>
           <CommandInput
             placeholder="Search framework..."
-            onValueChange={(search) => setValue(search)}
+            onValueChange={(search: string) => setValue(search)}
             value={value}
           />
           <CommandEmpty>No User Founded</CommandEmpty>
@@ -60,7 +59,7 @@ export default function Poplol({
               <CommandItem
                 key={data.value}
                 value={data.label}
-                onSelect={(currentValue) => {
+                onSelect={(currentValue: string) => {
                   setValue(data.value.toString());
                   setOpen(false);
                 }}

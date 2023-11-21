@@ -1,5 +1,3 @@
-import { CreatePost } from "@/app/_components/create-post";
-import { api } from "@/trpc/server";
 import {
   SignIn,
   SignOutButton,
@@ -10,8 +8,6 @@ import {
 import Link from "next/link";
 
 export default async function Home() {
-  const user = await currentUser();
-
   return (
     <section className="bg-slate-100 dark:bg-gray-900">
       <div className="mx-auto h-screen max-w-screen-xl flex-row items-center justify-center px-4 py-8 text-center lg:px-12 lg:py-16">
@@ -24,16 +20,20 @@ export default async function Home() {
           place. We are currently in beta and are looking for testers.
         </p>
         <div className="mb-8 flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-x-4 sm:space-y-0 lg:mb-16">
-          <div className="rounded-2xl bg-blue-400 p-3 text-lg font-bold text-slate-200 hover:bg-blue-500 hover:text-white">
-            <SignedOut>
-              <SignIn afterSignInUrl={"/welcome"} />
-            </SignedOut>
-            <SignedIn>
-              <Link href="/home">
-                <a>Go to Dashboard</a>
-              </Link>
-            </SignedIn>
-          </div>
+          <SignedOut>
+            <SignIn afterSignInUrl={"/welcome"} />
+          </SignedOut>
+          <SignedIn>
+            <Link
+              href="/home"
+              className="rounded-2xl bg-blue-400 p-3 text-lg font-bold text-slate-200 hover:bg-blue-500 hover:text-white"
+            >
+              Go to Dashboard
+            </Link>
+            <div className="rounded-2xl bg-slate-400 p-3 text-lg font-bold text-slate-200 hover:bg-slate-500 hover:text-white">
+              <SignOutButton />
+            </div>
+          </SignedIn>
         </div>
         <div className="mx-auto px-4 text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
           <span className="font-semibold uppercase text-gray-400">

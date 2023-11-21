@@ -1,9 +1,13 @@
-import { protectedProcedure, publicProcedure, router } from "@/lib/server/trpc";
+import {
+  createTRPCRouter,
+  publicProcedure,
+  protectedProcedure,
+} from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 import { MailsPacket } from "global";
 import { z } from "zod";
 
-export const mailsRouter = router({
+export const mailsRouter = createTRPCRouter({
   getInboundMails: protectedProcedure
     .input(
       z.object({
@@ -20,7 +24,7 @@ export const mailsRouter = router({
         },
       });
 
-      console.log("sono stato chiamato :" ,mails);
+      console.log("sono stato chiamato :", mails);
 
       if (!mails) {
         throw new TRPCError({

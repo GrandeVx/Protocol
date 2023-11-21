@@ -1,6 +1,6 @@
 "use client";
 import NavMailComponent from "../layouts/NavMailComponent";
-import { trpc } from "@/lib/trpc/client";
+import { api as trpc } from "@/trpc/react";
 import { useAuth } from "@clerk/nextjs";
 
 import useNavigationStore from "@/lib/zutstand";
@@ -37,7 +37,7 @@ export default function MailsNavbar() {
 
   if (mails.length == 0) {
     return (
-      <div className=" flex h-full flex-col items-center justify-center gap-3  transition-all duration-100 dark:divide-zinc-800 dark:border-zinc-800">
+      <div className=" flex h-full flex-col items-center justify-center gap-3  font-semibold text-slate-100 transition-all duration-100 dark:divide-zinc-800 dark:border-zinc-800 dark:bg-slate-800">
         <p className="text-md font-medium">
           {selected == "inbound"
             ? "Non Hai Ancora Ricevuto nessuna mail"

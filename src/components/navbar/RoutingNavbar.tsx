@@ -8,15 +8,11 @@ import {
   DrawerCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { trpc } from "@/lib/trpc/client";
+import { api as trpc } from "@/trpc/react";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import useNavigationStore from "@/lib/zutstand";
-import LoadingComponent from "../loading";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/navigation";
-import Loading from "@/app/(platform)/home/loading";
-
-// ... altri import ...
 
 export default function MailOptionNav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -42,7 +38,6 @@ export default function MailOptionNav() {
     console.log(InboundLoading, OutboundLoading, InboundMails, OutboundMails);
     return null;
   }
-  // ... il resto del tuo codice ...
 
   return (
     <>
@@ -57,7 +52,7 @@ export default function MailOptionNav() {
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
-            <nav className="w-3/20 flex h-full flex-col space-y-2 overflow-y-auto border-r border-zinc-200   p-3 dark:border-zinc-800">
+            <nav className="w-3/20 flex h-full flex-col space-y-2 overflow-y-auto border-r border-zinc-200   p-3 dark:border-zinc-800 dark:bg-slate-800 dark:text-slate-100">
               <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
                 Protocol
               </h1>
@@ -89,7 +84,7 @@ export default function MailOptionNav() {
                     </svg>
                     <span className="text-sm">Inbox</span>
                   </div>
-                  <span className="rounded-full bg-zinc-200 px-2 py-1 text-xs dark:bg-zinc-800">
+                  <span className="rounded-full bg-zinc-200 px-2 py-1 text-xs dark:bg-zinc-600">
                     {InboundMails.size}
                   </span>
                 </li>
@@ -144,7 +139,7 @@ export default function MailOptionNav() {
                     </svg>
                     <span className="text-sm">All Sent</span>
                   </div>
-                  <span className="rounded-full bg-zinc-200 px-2 py-1 text-xs dark:bg-zinc-800">
+                  <span className="rounded-full bg-zinc-200 px-2 py-1 text-xs dark:bg-zinc-600">
                     {OutboundMails.size}
                   </span>
                 </li>

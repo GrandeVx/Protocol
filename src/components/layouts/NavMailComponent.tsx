@@ -1,10 +1,10 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { trpc } from "@/lib/trpc/client";
+import { api as trpc } from "@/trpc/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const fixText = (text: string) => {
   // if the text is bigger than 100 characters, cut it
