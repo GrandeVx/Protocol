@@ -21,17 +21,35 @@ datasource db {
   url          = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    
-    name      String
-    user_id String
-    email     String
 
-    User user @relation(fields: [user_id], references: [id])
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    @@index([name, user_id])
+model mail {
+  id String @id @default(uuid())
+
+  from     String
+  to       String
+  messages message[]
+
+  is_deleted Boolean  @default(false)
+  is_viewed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sent_by     user @relation("sent_by", fields: [from], references: [id])
+  received_by user @relation("received_by", fields: [to], references: [id])
+}
+
+model message {
+  id      String @id @default(uuid())
+  mail_id String
+
+  subject String
+  body    String @db.VarChar(1000)
+
+  from     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  mail mail @relation(fields: [mail_id], references: [id])
 }
 
 model user {
@@ -41,12 +59,12 @@ model user {
   lastName  String
   profileImageUrl String?
 
-  Posts Post[]
+  mails_sent     mail[] @relation("sent_by")
+  mails_received mail[] @relation("received_by")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([id])
 }
-
 

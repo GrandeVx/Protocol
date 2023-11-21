@@ -1,2 +1,3 @@
-export * from "./post"
+export * from "./mail"
+export * from "./message"
 export * from "./user"
